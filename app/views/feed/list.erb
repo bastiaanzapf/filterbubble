@@ -1,0 +1,8 @@
+
+<% @feeds.each do |f| %>
+  <%= f.url %><br/>
+<% end %>
+
+<form method='post' action='/feed/create'>
+  <input name='url'/>
+</form>
