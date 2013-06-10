@@ -1,0 +1,2 @@
+module HintHelper
+end
