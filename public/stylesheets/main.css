@@ -1,0 +1,15 @@
+h1#title {
+    font-family:Aerolite;
+    font-size:40px;
+    width:100%;
+    padding-left:1em;
+    background:#090;
+    color:#fff;
+}
+
+@font-face {
+  font-family: Aerolite;
+  src: url(/fonts/AeroliteCPone.otf);
+}
+
+
