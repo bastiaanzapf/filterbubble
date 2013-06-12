@@ -5,16 +5,15 @@ def in_meta(meta_id,fun)
 
   render :text => "test"
 
-  Dir.chdir('../crm-data/'+meta_id.to_s+'/')
+  Dir.chdir('../crm-data/'+meta_id.to_s+'/') do
 
-  categories=Category.find :conditions => { "meta_id=$1",[meta_id]} 
+    categories=Category.find :conditions => { "meta_id=$1",[meta_id]} 
 
-  syms=categories.map |c| c["name"].to_sym()
+    syms=categories.map |c| c["name"].to_sym()
+    
+    crm = Classifier::CRM114.new(syms)
 
-  crm = Classifier::CRM114.new(syms)
-
-  fun(crm)
-
-  Dir.chdir('../../')
+    fun(crm)
+  end
 
 end
