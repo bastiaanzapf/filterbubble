@@ -4,8 +4,11 @@ class HintController < ApplicationController
   end
   def new
     # item * hint -> ()
-    item=Item.create :feed_id => 0, 
-                     :link => request.POST['url'] 
+    item=Item.find(:first,:conditions => {"link" => request.POST['url']})
+    if (!item)
+      item=Item.create(:feed_id => 0, 
+                       :link => request.POST['url'] )
+    end
     
     @i=request.POST['category']
     Hint.create :meta_id => 1, 
