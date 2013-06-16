@@ -1,46 +1,65 @@
+# -*- coding: undecided -*-
 
 Dir.chdir('/home/basti/filterbubble-run')
 
-require 'app/helpers/filterbubble/download.rb'
+load 'app/helpers/filterbubble/download.rb'
 require 'app/helpers/filterbubble/parse.rb'
 load 'app/helpers/filterbubble/crm.rb'
 
 class ItemController < ApplicationController
   layout 'application'
+  
+  def initialize
+    @conf= {
+      :limit => 30,
+      :confidencebonus => '1 DAY',
+      :displayinterval => '1 DAY'
+    }
+  end
+
+  # List news items
+
   def list
     @display_confidence=false
+    params[:displayinterval]=@conf[:displayinterval]
+    params[:confidencebonus]=@conf[:confidencebonus]
     if (params[:id1])
-      @items=Item.find(:all, :limit => 30,
+      @items=Item.find(:all, :limit => @conf[:limit],
                        :joins => ("JOIN categories_items USING "+
                                   "(item_id)"),
-                       :order => "confidence DESC",
+                       :order => ("(created_at+(confidence*interval '"+
+                                  @conf[:confidencebonus]+
+                                  "')) DESC"),
                        :conditions =>
-                       ["created_at<(NOW() - INTERVAL '1 DAY') AND "+
+                       ["created_at>(NOW() - INTERVAL :displayinterval) AND "+
                         "meta_id=:id1 AND category_id=:id2",params]
                        )
       @display_confidence=true
+      @confidence_color_code=true
     else
       @items=Item.find(:all)
     end
   end
 
   def doubt
+    params[:displayinterval]=@conf[:displayinterval]
+    params[:confidencebonus]=@conf[:confidencebonus]
     if (!params[:id2])
-      @items=Item.find(:all, :limit => 30,
+      @items=Item.find(:all, :limit => @limit,
                        :joins => ("JOIN categories_items USING "+
                                   "(item_id)"),
                        :order => "confidence ASC",
                        :conditions =>
-                       ["created_at<(NOW() - INTERVAL '3 DAY') AND "+
+                       ["created_at>(NOW() - INTERVAL :displayinterval) AND "+
                         "meta_id=:id1",params]
                        )
     else
-      @items=Item.find(:all, :limit => 30,
+      @items=Item.find(:all, :limit => @limit,
                        :joins => ("JOIN categories_items USING "+
                                   "(item_id)"),
-                       :order => "confidence ASC",
+                       :order => "created_at DESC",
                        :conditions =>
-                       ["created_at<(NOW() - INTERVAL '3 DAY') AND "+
+                       ["created_at>(NOW() - INTERVAL :displayinterval) AND "+
                         "meta_id=:id1 AND category_id=:id2",params]
                        )
     end
@@ -50,6 +69,7 @@ class ItemController < ApplicationController
   end
 
   def apply
+    render :text => "Nein."
     fmt=Format.find(:first,:conditions => { :format_id => params[:id2] })   
     @item=Item.find(:first,:conditions => { :item_id => params[:id1] })
     html=http_get(@item.link)

@@ -1,0 +1,20 @@
+
+<table>
+<% @formats.each do |fmt| %>
+<tr>
+<td><%= fmt.algorithm %></td> 
+<td><%= fmt.parameter %></td>
+<td><a href='/format/edit/<%= fmt.format_id %>'>Bearbeiten</a></td>
+</tr>
+<% end %>
+</table>
+
+<form action='/format/create' method='post'>
+<select name='feed'>
+<% @feeds.each do |feed| %>
+   <option value='<%= feed.feed_id %>'><%= feed.url %></option>
+<% end %>
+</select><br/>
+<input name='parameter'><br/>
+<input type='submit'>
+</form>

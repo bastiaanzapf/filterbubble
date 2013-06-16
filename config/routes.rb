@@ -31,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => "welcome", :action => "index"
+#  map.root :controller => "welcome", :action => "index"
 
   map.connect 'item/zweifel/:id1', :controller => "item" , :action => "doubt"
   map.connect 'item/zweifel/:id1/:id2', :controller => "item" , :action => "doubt"
@@ -44,6 +44,8 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing or commenting them out if you're using named routes and resources.
+  map.connect ':action', :controller => "static"
+  map.root :controller => "static", :action => "root"
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

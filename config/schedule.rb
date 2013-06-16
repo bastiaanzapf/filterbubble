@@ -19,10 +19,10 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :output "/home/basti/filterbubble-run/whenever.log"
+#set :output, "/home/basti/filterbubble-run/log/whenever.log"
 
-every 1.hours do
-  script "../script/update"
-  script "../script/classify"
-  script "../script/train"
-end
+#every 1.minute do
+#  script "update"
+#  script "classify"
+#  script "train"
+#end

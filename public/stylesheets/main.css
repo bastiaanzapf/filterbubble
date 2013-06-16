@@ -1,10 +1,37 @@
-h1#title {
-    font-family:Aerolite;
-    font-size:40px;
-    width:100%;
+#header {
     padding-left:1em;
     background:#090;
     color:#fff;
+    height:50px;
+}
+
+#header h1 {
+    display:inline-block;
+    margin:0;
+    font-family:Aerolite;
+    font-size:40px;
+}
+
+#header h1 a {
+    text-decoration:none;
+}
+
+#header ul {
+    font-family:Sans;
+    float:right;
+}
+
+#header ul li {
+    display:inline-block;
+    margin-right:1em;
+}
+
+#header a {
+    color:#fff;
+}
+
+#body table {
+    width:100%;
 }
 
 @font-face {
@@ -12,4 +39,6 @@ h1#title {
   src: url(/fonts/AeroliteCPone.otf);
 }
 
-
+body {
+    font-family:Sans;
+}

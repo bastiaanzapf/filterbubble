@@ -1,0 +1,11 @@
+
+
+<form action="/hint/new" method="post">
+      <input name='url'>
+<select name='category'>
+<% @categories.each do |c| %>
+  <option value='<%= c.category_id %>'><%= c.name %></option>
+<% end %>
+</select>
+<input type='submit'>
+</form>

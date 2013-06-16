@@ -1,0 +1,39 @@
+
+<%=@test1%>
+<%=@test2%>
+<table>
+<% @items.each do |item| %>
+<tr>
+<% if @display_confidence %>
+<% if !@confidence_color_code %>
+<td><%= item.category[0].confidence %></td>
+<% else %>
+<td style='background-color:#<%=
+a=Float(item.category[0].confidence )
+if a>0.9
+   b='0f0'
+elsif a>0.8
+   b='7f0'
+elsif a>0.7
+   b='770'
+elsif a>0.6
+   b='730'
+elsif a>0.5
+   b='f00'
+end
+b
+%>'>&nbsp</td>
+<% end %>
+<% else %>
+<td>-</td>
+<% end %>
+<td><a href='<%= item.link %>'><%=item.link%></a></td>
+<% if @display_category %>
+<td><%= item.category[0].name %></td>
+<% end %>
+
+<!--<td><a href='/item/apply/<%= item.item_id %>/<%= (item.feed.format[0])?(item.feed.format[0].format_id):0 %>'>Gluck</a>-->
+</td>
+</tr>
+<% end %>
+</table>
