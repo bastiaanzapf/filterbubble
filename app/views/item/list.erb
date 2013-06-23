@@ -1,6 +1,8 @@
-
-<%=@test1%>
-<%=@test2%>
+<p>
+Sie sehen hier eine Liste von Links, die auf Texte verweisen, die anscheinend die Eigenschaft
+"<%= @items[0].category[0].description %>"
+haben. Klicken Sie auf "falsch", um einen Link als falsch einsortiert zu markieren.
+</p>
 <table>
 <% @items.each do |item| %>
 <tr>
@@ -24,8 +26,15 @@ end
 b
 %>'>&nbsp</td>
 <% end %>
-<% else %>
-<td>-</td>
+<% end %>
+<% if @change_category %>
+<% @categories.each do |cat| %>
+<% if cat.category_id != item.category[0].category_id %>
+<td>
+<a style='color:#700' href='/hint/new_by_ids/<%=item.item_id%>/<%=params[:id1]%>/<%=cat.category_id%>'>falsch</a>
+</td>
+<% end %>
+<% end %>
 <% end %>
 <td><a href='<%= item.link %>'><%=item.link%></a></td>
 <% if @display_category %>

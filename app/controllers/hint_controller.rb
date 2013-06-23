@@ -18,4 +18,23 @@ class HintController < ApplicationController
     
     redirect_to :action=>'blank', :status => 302
   end
+
+  def new_by_ids
+    # item * hint -> ()
+    
+    Hint.create(:meta_id => params[:meta_id], 
+                :category_id => params[:category_id], 
+                :item_id => params[:item_id],
+                :processed => false)
+    
+    c=Category.find(:first,
+                    :conditions =>
+                    ["meta_id=:meta_id AND "+
+                     "category_id!=:category_id",
+                     params]);
+
+    redirect_to("/item/list/"+params[:meta_id]+
+                "/"+c[:category_id].to_s,
+                :status => 302)
+  end
 end

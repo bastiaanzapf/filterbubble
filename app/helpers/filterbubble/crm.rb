@@ -17,7 +17,7 @@ def in_meta(meta_id,fun)
 end
 
 def crm_classify(text,meta_id)
-  return in_meta(1,lambda { |crm| crm.classify text } )
+  return in_meta(meta_id,lambda { |crm| crm.classify text } )
 end
 
 def crm_learn(text,meta_id,category_id)

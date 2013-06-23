@@ -37,6 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'item/zweifel/:id1/:id2', :controller => "item" , :action => "doubt"
   map.connect 'item/:action/:id', :controller => "item"
   map.connect 'item/:action/:id1/:id2', :controller => "item"
+  map.connect 'hint/:action/:item_id/:meta_id/:category_id', :controller => "hint"
 #  map.connect 'format/edit/:id', :controller => 'format' , :action => 'edit' 
 
   # See how all your routes lay out with "rake routes"

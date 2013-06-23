@@ -5,14 +5,12 @@ require '../app/helpers/filterbubble/crm.rb'
 require '../app/helpers/filterbubble/download.rb'
 require '../app/helpers/filterbubble/parse.rb'
 
-#metas=[1,2];
-
 meta_id=1;
 
 items=Item.find(:all,:conditions => "meta_id IS NULL",
                 :joins => ("LEFT JOIN categories_items ON "+
                            "(categories_items.item_id=item.item_id "+
-                           "AND meta_id="+(meta_id.to_s)+") ")
+                           "AND meta_id="+meta_id.to_s+") ")
                 );
 
 class ClassifyException < Exception
@@ -32,11 +30,8 @@ items.each do |item|
           doc=parse_html(html)
           @text=extract_xpath_text(doc,fmt.parameter)
           result=crm_classify(@text,meta_id)
-
           
-          cat=Category.find(:first,:conditions => 
-                            {"meta_id" => meta_id,
-                              "name" => result[0].to_s});
+          cat=Category.find(:first,:conditions => {"name" => result[0].to_s});
           
           puts item.link+" "+result[0].to_s
 
@@ -47,9 +42,9 @@ items.each do |item|
             file.close();
           }
 
-          #          if (result[1]<0.6)
-          #            throw ClassifyException.exception("Konfidenz < 0.6 - gehört nicht in diese Kategorie")
-          #          end
+#          if (result[1]<0.6)
+#            throw ClassifyException.exception("Konfidenz < 0.6 - gehört nicht in diese Kategorie")
+#          end
           
           ActiveRecord::Base.connection.execute('INSERT INTO categories_items '+
                                                 '(item_id,meta_id,category_id,confidence)'+

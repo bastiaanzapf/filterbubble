@@ -1,10 +1,10 @@
 # -*- coding: undecided -*-
 
-Dir.chdir('/home/basti/filterbubble-run')
+#Dir.chdir('/home/basti/filterbubble-run')
 
-load 'app/helpers/filterbubble/download.rb'
-require 'app/helpers/filterbubble/parse.rb'
-load 'app/helpers/filterbubble/crm.rb'
+#load 'app/helpers/filterbubble/download.rb'
+#require 'app/helpers/filterbubble/parse.rb'
+#load 'crm.rb'
 
 class ItemController < ApplicationController
   layout 'application'
@@ -12,7 +12,7 @@ class ItemController < ApplicationController
   def initialize
     @conf= {
       :limit => 30,
-      :confidencebonus => '1 DAY',
+      :confidencebonus => '12 HOUR',
       :displayinterval => '1 DAY'
     }
   end
@@ -34,8 +34,11 @@ class ItemController < ApplicationController
                        ["created_at>(NOW() - INTERVAL :displayinterval) AND "+
                         "meta_id=:id1 AND category_id=:id2",params]
                        )
-      @display_confidence=true
-      @confidence_color_code=true
+ #     @display_confidence=true
+#      @confidence_color_code=true
+      @change_category=true
+      @categories=Category.find(:all,
+                                :conditions => ["meta_id=:id1",params])
     else
       @items=Item.find(:all)
     end
