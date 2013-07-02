@@ -1,1 +1,1 @@
-load '../app/helpers/filterbubble/rss.rb'
+load 'helpers/filterbubble/rss.rb'

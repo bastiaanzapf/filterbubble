@@ -1,2 +1,2 @@
-require '../app/helpers/filterbubble/hints.rb'
+require 'helpers/filterbubble/hints.rb'
 train_all_hints

@@ -1,7 +1,7 @@
 
-require 'crm.rb'
-require 'download.rb'
-require 'parse.rb'
+require 'helpers/filterbubble/crm'
+require 'helpers/filterbubble/download'
+require 'helpers/filterbubble/parse'
 
 def train_all_hints
   hints=Hint.all(:conditions => {"processed"=>'f'})

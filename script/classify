@@ -1,1 +1,2 @@
-load '../app/helpers/filterbubble/classify.rb'
+require 'helpers/filterbubble/classify.rb'
+classify_all

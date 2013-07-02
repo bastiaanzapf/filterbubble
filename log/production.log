@@ -17,3 +17,38 @@ Processing ItemController#list (for 84.174.43.107 at 2013-07-02 20:55:42) [GET]
 Rendering template within layouts/application
 Rendering item/list
 Completed in 105ms (View: 86, DB: 16) | 200 OK [http://development.filterbubble.info/item/list/1/1]
+
+
+Processing ItemController#list (for 84.174.43.107 at 2013-07-02 20:59:32) [GET]
+  Parameters: {"id1"=>"1", "id2"=>"1"}
+Rendering template within layouts/application
+Rendering item/list
+Completed in 46ms (View: 33, DB: 11) | 200 OK [http://development.filterbubble.info/item/list/1/1]
+
+
+Processing ItemController#list (for 84.174.43.107 at 2013-07-02 21:08:37) [GET]
+  Parameters: {"id1"=>"1", "id2"=>"1"}
+Rendering template within layouts/application
+Rendering item/list
+Completed in 97ms (View: 80, DB: 14) | 200 OK [http://development.filterbubble.info/item/list/1/1]
+
+
+Processing ItemController#list (for 84.174.43.107 at 2013-07-02 21:09:45) [GET]
+  Parameters: {"id1"=>"1", "id2"=>"1"}
+Rendering template within layouts/application
+Rendering item/list
+Completed in 49ms (View: 36, DB: 12) | 200 OK [http://development.filterbubble.info/item/list/1/1]
+
+
+Processing ItemController#list (for 84.174.43.107 at 2013-07-02 21:11:14) [GET]
+  Parameters: {"id1"=>"1", "id2"=>"1"}
+Rendering template within layouts/application
+Rendering item/list
+Completed in 46ms (View: 34, DB: 11) | 200 OK [http://development.filterbubble.info/item/list/1/1]
+
+
+Processing ItemController#list (for 84.174.43.107 at 2013-07-02 21:31:06) [GET]
+  Parameters: {"id1"=>"1", "id2"=>"1"}
+Rendering template within layouts/application
+Rendering item/list
+Completed in 139ms (View: 81, DB: 56) | 200 OK [http://development.filterbubble.info/item/list/1/1]
