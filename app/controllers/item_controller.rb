@@ -25,18 +25,17 @@ class ItemController < ApplicationController
     params[:confidencebonus]=@conf[:confidencebonus]
     if (params[:id1])
       @items=Item.find(:all, :limit => @conf[:limit],
-                       :joins => ("JOIN categories_items USING "+
-                                  "(item_id)"),
-                       :order => ("(created_at+(confidence*interval '"+
-                                  @conf[:confidencebonus]+
-                                  "')) DESC"),
+                       :joins => "JOIN categories_items USING (item_id) JOIN category USING (meta_id,category_id)",
                        :conditions =>
                        ["created_at>(NOW() - INTERVAL :displayinterval) AND "+
-                        "meta_id=:id1 AND category_id=:id2",params]
-                       )
+                        "meta_id=:id1 AND category_id=:id2",params]            
+           )
+
+      
  #     @display_confidence=true
 #      @confidence_color_code=true
       @change_category=true
+      
       @categories=Category.find(:all,
                                 :conditions => ["meta_id=:id1",params])
     else

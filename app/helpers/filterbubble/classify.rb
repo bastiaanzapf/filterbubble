@@ -9,11 +9,9 @@ require '../app/helpers/filterbubble/parse.rb'
 
 meta_id=1;
 
-items=Item.find(:all,:conditions => "meta_id IS NULL",
-                :joins => ("LEFT JOIN categories_items ON "+
-                           "(categories_items.item_id=item.item_id "+
-                           "AND meta_id="+(meta_id.to_s)+") ")
-                );
+metas=Meta.find(:all)
+
+items=Item.find(:all,:conditions => "created_at > now()- interval '1 day' ")
 
 class ClassifyException < Exception
 end
@@ -29,34 +27,48 @@ items.each do |item|
         end
         if (html!="")
           puts fmt.parameter
-          doc=parse_html(html)
-          @text=extract_xpath_text(doc,fmt.parameter)
-          result=crm_classify(@text,meta_id)
 
-          
-          cat=Category.find(:first,:conditions => 
-                            {"meta_id" => meta_id,
-                              "name" => result[0].to_s});
-          
-          puts item.link+" "+result[0].to_s
+          metas.each do |meta|
 
-          File.open('../cache/'+(meta_id.to_s)+'/'+
-                    (cat.category_id.to_s)+'/'+
-                    (item.item_id.to_s),'w') { |file|
-            file.write(@text);
-            file.close();
-          }
+            meta_id=meta.meta_id
 
-          #          if (result[1]<0.6)
-          #            throw ClassifyException.exception("Konfidenz < 0.6 - gehört nicht in diese Kategorie")
-          #          end
-          
-          ActiveRecord::Base.connection.execute('INSERT INTO categories_items '+
-                                                '(item_id,meta_id,category_id,confidence)'+
-                                                ' VALUES (%i,%i,%i,%f)'%
-                                                [item.item_id,meta_id,
-                                                 cat.category_id,result[1]]
-                                                )
+            classfied=Category.
+              find(:first,
+                   :joins => 'JOIN categories_items USING (meta_id)',
+                   :conditions =>
+                   {"meta_id" => meta_id})
+
+            if (!defined?(classified))
+
+              doc=parse_html(html)
+              @text=extract_xpath_text(doc,fmt.parameter)
+              result=crm_classify(@text,meta_id)
+
+              cat=Category.find(:first,:conditions => 
+                                {"meta_id" => meta_id,
+                                  "name" => result[0].to_s});
+              
+              puts item.link+" "+result[0].to_s
+              
+              File.open('../cache/'+(meta_id.to_s)+'/'+
+                        (cat.category_id.to_s)+'/'+
+                        (item.item_id.to_s),'w') { |file|
+                file.write(@text);
+                file.close();
+              }
+
+              #          if (result[1]<0.6)
+              #            throw ClassifyException.exception("Konfidenz < 0.6 - gehört nicht in diese Kategorie")
+              #          end
+              
+              ActiveRecord::Base.connection.execute('INSERT INTO categories_items '+
+                                                    '(item_id,meta_id,category_id,confidence)'+
+                                                    ' VALUES (%i,%i,%i,%f)'%
+                                                    [item.item_id,meta_id,
+                                                     cat.category_id,result[1]]
+                                                    )
+            end
+          end
         end
       end
     end
