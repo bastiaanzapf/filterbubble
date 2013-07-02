@@ -52,3 +52,10 @@ Processing ItemController#list (for 84.174.43.107 at 2013-07-02 21:31:06) [GET]
 Rendering template within layouts/application
 Rendering item/list
 Completed in 139ms (View: 81, DB: 56) | 200 OK [http://development.filterbubble.info/item/list/1/1]
+
+
+Processing ItemController#list (for 84.174.43.107 at 2013-07-02 21:35:01) [GET]
+  Parameters: {"id1"=>"1", "id2"=>"1"}
+Rendering template within layouts/application
+Rendering item/list
+Completed in 300ms (View: 281, DB: 16) | 200 OK [http://filterbubble.info/item/list/1/1]
