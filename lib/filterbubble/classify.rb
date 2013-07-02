@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 require 'libxml' 
-require '../app/helpers/filterbubble/crm.rb'
-require '../app/helpers/filterbubble/download.rb'
-require '../app/helpers/filterbubble/parse.rb'
+require 'crm.rb'
+require 'download.rb'
+require 'parse.rb'
 
 meta_id=1;
 

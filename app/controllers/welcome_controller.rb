@@ -1,4 +1,4 @@
-require 'lib/filterbubble/database.rb'
+#require 'lib/filterbubble/database.rb'
 
 class WelcomeController < ApplicationController
   def index
