@@ -32,7 +32,7 @@ class ItemController < ApplicationController
            )
 
       
- #     @display_confidence=true
+#      @display_confidence=true
 #      @confidence_color_code=true
       @change_category=true
       

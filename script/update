@@ -1,1 +1,2 @@
 load 'helpers/filterbubble/rss.rb'
+get_feeds

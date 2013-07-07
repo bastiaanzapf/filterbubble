@@ -1,6 +1,6 @@
 #!/bin/bash
 
 cd script
-./console < train
-./console < update
-./console < classify
+./console production < train
+./console production < update
+./console production < classify

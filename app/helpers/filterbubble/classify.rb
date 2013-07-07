@@ -29,11 +29,13 @@ def classify_all
             
             classified=item.category.
               find(:first,
-                   :joins => 'JOIN categories_items USING (meta_id)',
                    :conditions =>
                    {"meta_id" => meta_id})
+
             
-            if (!defined?(classified))
+            if (classified.nil?)
+              
+              print ".";
               
               html=http_get(item.link)
               
@@ -75,9 +77,13 @@ def classify_all
     rescue IRB::Abort, SystemExit, Interrupt => e
       puts "Abgebrochen!"
       raise
-    rescue Exception => e
-      puts "Fehler: "+e.to_s+"\n"+e.backtrace.join("\n")
-      raise
+    rescue URI::InvalidURIError => e
+      puts "Ungültige URI."
+    rescue EOFError => e
+      puts "EOF?!"
+    rescue Exception 
+      puts "Fehler: "+e.to_s
     end
   end
+  return nil
 end

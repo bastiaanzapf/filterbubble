@@ -25,5 +25,5 @@ def crm_learn(text,meta_id,category_id)
                          :conditions => 
                          { "category_id"=>category_id,
                            "meta_id"=>meta_id } )
-  return in_meta(1,lambda { |crm| crm.train!(category.name.to_sym(),text) } )
+  return in_meta(meta_id,lambda { |crm| crm.train!(category.name.to_sym(),text) } )
 end
