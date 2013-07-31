@@ -8,15 +8,26 @@ def train_all_hints
   hints.each do |hint|
     fmt=hint.item.feed.format[0]
     if (fmt)
-      @item=hint.item
-      html=http_get(@item.link)
-      doc=parse_html(html)
-      @text=extract_xpath_text(doc,fmt.parameter)
-      crm_learn(@text,hint.meta_id,hint.category_id)
-      
+      begin
+        @item=hint.item
+        html=http_get(@item.link)
+        doc=parse_html(html)
+        @text=extract_xpath_text(doc,fmt.parameter)
+        crm_learn(@text,hint.meta_id,hint.category_id)
+      rescue URI::Error => e
+        puts "URI-Fehler:"
+        puts e
+      rescue => e
+        puts e
+      end
       hint.processed=true
       hint.save
-      hint.item.category.delete(hint.item.category[0])
+      begin
+        hint.item.category.delete(hint.item.category[0])
+      rescue ActiveRecord::AssociationTypeMismatch => e
+        puts "No such category"
+        puts e
+      end
     end
   end
   return "";

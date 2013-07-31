@@ -2,12 +2,15 @@
     padding-left:1em;
     background:#090;
     color:#fff;
-    height:50px;
+    height:70px;
+    padding:10px;
+    border-radius:30px;
 }
 
 #header h1 {
     display:inline-block;
-    margin:0;
+    margin:10px;
+    margin-left:30px;
     font-family:Aerolite;
     font-size:40px;
 }
@@ -17,6 +20,7 @@
 }
 
 #header ul {
+    padding-top:10px;
     font-family:Sans;
     float:right;
 }
