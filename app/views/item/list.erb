@@ -31,7 +31,7 @@ b
 <% @categories.each do |cat| %>
 <% if cat.category_id != item.category.find(:first,:conditions => {"meta_id" => params[:id1] }).category_id %>
 <td>
-<a style='color:#700' href='/hint/new_by_ids/<%=item.item_id%>/<%=params[:id1]%>/<%=cat.category_id%>'>falsch</a>
+<form method='post' action='/hint/new_by_ids/'><input type='hidden' name='item' value='<%=item.item_id%>'><input type='hidden' name='meta' value='<%=params[:id1]%>'><input type='hidden' name='category' value='<%=cat.category_id%>'><input type='submit' value='falsch'></form>
 </td>
 <% end %>
 <% end %>

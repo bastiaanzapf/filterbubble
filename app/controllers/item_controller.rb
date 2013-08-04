@@ -39,6 +39,11 @@ class ItemController < ApplicationController
       
       @categories=Category.find(:all,
                                 :conditions => ["meta_id=:id1",params])
+
+      Access.create(:page => 1,
+                    :meta_id => params[:id1],
+                    :category_id => params[:id2])
+
     else
       @items=Item.find(:all)
     end

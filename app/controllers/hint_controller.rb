@@ -22,11 +22,12 @@ class HintController < ApplicationController
   def new_by_ids
     # item * hint -> ()
     
-    Hint.create(:meta_id => params[:meta_id], 
-                :category_id => params[:category_id], 
-                :item_id => params[:item_id],
+    Hint.create(:meta_id => request.POST['meta'], 
+                :category_id => request.POST['category'], 
+                :item_id => request.POST['item'],
                 :processed => false)
-    
+    params={ :meta_id => request.POST['meta'], 
+      :category_id => request.POST['category']}
     c=Category.find(:first,
                     :conditions =>
                     ["meta_id=:meta_id AND "+
@@ -36,5 +37,10 @@ class HintController < ApplicationController
     redirect_to("/item/list/"+params[:meta_id]+
                 "/"+c[:category_id].to_s,
                 :status => 302)
+    
+    Access.create(:page => 2,
+                  :meta_id => request.POST['meta'],
+                  :category_id => request.POST['category'])
+
   end
 end
