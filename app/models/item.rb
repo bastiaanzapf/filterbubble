@@ -6,4 +6,8 @@ class Item < ActiveRecord::Base
   belongs_to :format
   belongs_to :item_category
   has_and_belongs_to_many :category
+
+  def escapedLink
+    URI.escape(self.link.gsub(':80',''), Regexp.union(URI::REGEXP::UNSAFE, /&/))
+  end
 end

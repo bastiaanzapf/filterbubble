@@ -36,13 +36,10 @@ b
 <% end %>
 <% end %>
 <% end %>
-<td><a href='<%= item.link %>'><%=item.link%></a></td>
+<td><a href='<%= item.escapedLink %>'><%=item.escapedLink%></a></td>
 <% if @display_category %>
 <td><%= item.category[0].name %></td>
 <% end %>
-
-<!--<td><a href='/item/apply/<%= item.item_id %>/<%= (item.feed.format[0])?(item.feed.format[0].format_id):0 %>'>Gluck</a>-->
-</td>
 </tr>
 <% end %>
 </table>

@@ -43,7 +43,7 @@ def classify_all
             
             if (classified.nil?)
               
-              if (html)
+              if (html.nil?)
                 
                 # get content
                 
@@ -62,12 +62,21 @@ def classify_all
 
               # extract title
 
-              h1=extract_xpath_text(doc,'//h1[1]')
+              h1=extract_xpath_text(doc,'//h1[1]/descendant-or-self::text()[not(parent::script)]')
               puts "H1: "+h1
               
               if (h1)
                 Title.create(:item_id =>item.item_id,
                              :title => h1)
+              else
+                h2=extract_xpath_text(doc,'//h2[1]/descendant-or-self::text()[not(parent::script)]')
+                puts "H1: "+h1
+              
+                if (h2)
+                  Title.create(:item_id =>item.item_id,
+                               :title => h1)
+                end
+
               end
               
 
