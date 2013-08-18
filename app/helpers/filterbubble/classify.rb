@@ -30,7 +30,8 @@ def classify_all
           # forget previous content
           
           html=nil
-          
+          doc=nil
+
           metas.each do |meta|
             
             meta_id=meta.meta_id
@@ -83,8 +84,6 @@ def classify_all
               # extract text
 
               @text=extract_xpath_text(doc,fmt.parameter)
-              
-              print ".";
               
               result=crm_classify(@text,meta_id)
               
