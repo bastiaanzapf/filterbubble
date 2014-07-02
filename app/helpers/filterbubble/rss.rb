@@ -26,9 +26,9 @@ def get_feeds
         end
       end
     rescue PGError => e
-      puts "Postgres Error "+e
+      puts "Postgres Error "+e.to_s
     rescue LibXML::XML::Error => e
-      puts "XML Error "+e
+      puts "XML Error "+e.to_s
     end    
   end
 end

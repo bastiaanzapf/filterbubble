@@ -1,5 +1,3 @@
-# -*- coding: undecided -*-
-
 #Dir.chdir('/home/basti/filterbubble-run')
 
 #load 'app/helpers/filterbubble/download.rb'
@@ -26,7 +24,7 @@ class ItemController < ApplicationController
     if (params[:id1])
       @items=Item.find(:all, :limit => @conf[:limit],
                        :joins => "JOIN categories_items USING (item_id) JOIN category USING (meta_id,category_id) ",
-                       :order => ["created_at + (confidence * INTERVAL '1 DAY') DESC"],
+                       :order => "(created_at + (confidence * INTERVAL '1 DAY')) DESC",
                        :conditions =>
                        ["created_at>(NOW() - INTERVAL :displayinterval) AND "+
                         "meta_id=:id1 AND category_id=:id2 AND confidence!=0.5",params]            

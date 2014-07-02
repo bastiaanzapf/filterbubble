@@ -1,4 +1,8 @@
 
+$LOAD_PATH.unshift('/usr/lib/ruby/vendor_ruby/feed_tools/helpers/')
+
+require 'feed_tools'
+
 class FeedController < ApplicationController
   def list
     @feeds=Feed.all

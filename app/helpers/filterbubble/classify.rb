@@ -47,8 +47,10 @@ def classify_all
               if (html.nil?)
                 
                 # get content
-                
-                html=http_get(item.link)
+                print "\n"
+                print "Item %i\n" % item.item_id
+                print "URL %s\n" % item.link.strip
+                html=http_get(item.link.strip)
                 
                 if (html.bytesize<200)
                   throw ClassifyException.exception("Body almost empty")
@@ -71,7 +73,7 @@ def classify_all
                              :title => h1)
               else
                 h2=extract_xpath_text(doc,'//h2[1]/descendant-or-self::text()[not(parent::script)]')
-                puts "H1: "+h1
+                puts "H2: "+h1
               
                 if (h2)
                   Title.create(:item_id =>item.item_id,
@@ -103,13 +105,18 @@ def classify_all
               #          if (result[1]<0.6)
               #            throw ClassifyException.exception("Konfidenz < 0.6 - gehört nicht in diese Kategorie")
               #          end
+
+              if (result[0]!='' && result[1]!=0.5)
               
-              ActiveRecord::Base.connection.execute('INSERT INTO categories_items '+
-                                                    '(item_id,meta_id,category_id,confidence)'+
-                                                    ' VALUES (%i,%i,%i,%f)'%
-                                                    [item.item_id,meta_id,
-                                                     cat.category_id,result[1]]
-                                                    )
+                ActiveRecord::Base.
+                  connection.
+                  execute('INSERT INTO categories_items '+
+                          '(item_id,meta_id,category_id,confidence)'+
+                          ' VALUES (%i,%i,%i,%f)'%
+                          [item.item_id,meta_id,
+                           cat.category_id,result[1]]
+                          )
+              end
             end
           end
         end
@@ -118,7 +125,7 @@ def classify_all
       puts "Abgebrochen!"
       raise
     rescue URI::InvalidURIError => e
-      puts "Ungültige URI."
+      puts "Ungültige URI: %s." % item.link
     rescue EOFError => e
       puts "EOF?!"
     rescue Exception => e
